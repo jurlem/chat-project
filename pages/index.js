@@ -41,17 +41,18 @@ const Home = () => {
   const [token, setToken] = useState(null)
 
   const { refreshToken, newToken } = useRefreshToken(token)
-  const { newChat, chatId } = useCreateNewChat(token)
+  const { newChat, chatId, isThreadStarted, allMyConversations } = useCreateNewChat(token)
   const { postingMessage, messageStatus, sentMessage } = usePostMessageInChat(token)
   const { gettingAllMessage, messages } = useGetAllChatIdMessages(token)
 
 
 
-  const handleClickOpen = (i) => {
+  const handleClickOpen = async(i) => {
     setOpen(true);
     setActiveWindow(i)
     refreshToken()
-    newChat([user.id, i.id])
+  // todo: isThreadStarted()
+    newChat(i.id)
     setCurrentChatId(chatId)
 
   };
